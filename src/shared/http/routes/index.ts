@@ -1,9 +1,7 @@
+import usersRouter from '@modules/Users/routes/users.routes';
 import { Router } from 'express';
 
 const routes = Router();
-
-routes.get('/', (request, response) => {
-  return response.json({ message: 'nois!' });
-});
+routes.use('/users', usersRouter);
 
 export default routes;
