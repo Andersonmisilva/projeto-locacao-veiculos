@@ -7,6 +7,12 @@ interface IfindUser {
 
 @EntityRepository(User)
 class UsersRepository extends Repository<User> {
+  static save(User: User) {
+    throw new Error('Method not implemented.');
+  }
+  static findByName(name: string) {
+    throw new Error('Method not implemented.');
+  }
   public async findByName(name: string): Promise<User | undefined> {
     const user = this.findOne({
       where: {

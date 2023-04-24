@@ -29,4 +29,18 @@ usersRouter.post(
   usersController.create,
 );
 
+usersRouter.put(
+  '/:id',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      email: Joi.string().required(),
+    },
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  usersController.update,
+);
+
 export default usersRouter;

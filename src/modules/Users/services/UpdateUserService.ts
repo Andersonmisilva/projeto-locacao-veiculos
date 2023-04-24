@@ -1,49 +1,39 @@
-import redisCache from '@shared/cache/RedisCache';
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import Product from '../typeorm/entities/Product';
-import ProductRepository from '../typeorm/repositories/ProductsRepository';
+import User from '../typeorm/entities/User';
+import UsersRepository from '../repositories/UsersRepository';
 
 interface IRequest {
   id: string;
   name: string;
-  price: number;
-  quantity: number;
+  email: string;
 }
 
-class UpdateProductService {
-  public async execute({
-    id,
-    name,
-    price,
-    quantity,
-  }: IRequest): Promise<Product> {
-    const productsRepository = getCustomRepository(ProductRepository);
+class UpdateUserService {
+  public async execute({ id, name, email }: IRequest): Promise<User> {
+    const usersRepository = getCustomRepository(UsersRepository);
 
-    const product = await productsRepository.findOne(id);
+    const user = await usersRepository.findOne(id);
 
-    if (!product) {
-      throw new AppError('Product not found.');
+    if (!user) {
+      throw new AppError('User not found.');
     }
 
-    const productExists = await productsRepository.findByName(name);
+    // Essa parte não existe, pois vc já verifica se existe o ID ou não.
+    // const userExists = await usersRepository.findByName(name);
 
-    if (productExists) {
-      throw new AppError('There is already one product with this name');
-    }
+    // if (!userExists) {
+    //   throw new AppError('There is already one user with this name');
+    // }
 
-    // const redisCache = new RedisCache();
+    user.name = name;
+    user.email = email;
+    user.updated_at = new Date();
 
-    await redisCache.invalidate('api-vendas-PRODUCT_LIST');
+    await usersRepository.save(user);
 
-    product.name = name;
-    product.price = price;
-    product.quantity = quantity;
-
-    await productsRepository.save(product);
-
-    return product;
+    return user;
   }
 }
 
-export default UpdateProductService;
+export default UpdateUserService;
