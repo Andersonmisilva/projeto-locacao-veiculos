@@ -51,16 +51,10 @@ export default class UsersController {
     return response.json(user);
   }
 
-  public async disable(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
+  public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-
     const deleteUser = new DeleteUserService();
-
     const user = await deleteUser.execute(id);
-
     return response.json(user);
   }
 }
