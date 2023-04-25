@@ -2,7 +2,7 @@ export interface IListRequest {
   id: string;
 }
 
-interface IRequest {
+export interface ICreateRequest {
   name: string;
   email: string;
   password: string;

@@ -3,6 +3,7 @@ import CreateUserService from '../services/CreateUserService';
 import ListUserService from '../services/ListUserService';
 import UpdateUserService from '../services/UpdateUserService';
 import ShowUserService from '../services/ListOneUserService';
+import DeleteUserService from '../services/DeleteUserService';
 
 export default class UsersController {
   public async show(request: Request, response: Response): Promise<Response> {
@@ -18,7 +19,7 @@ export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listUser = new ListUserService();
 
-    const users = listUser.execute();
+    const users = await listUser.execute();
 
     return response.json(users);
   }
@@ -50,5 +51,16 @@ export default class UsersController {
     return response.json(user);
   }
 
-  //Delete
+  public async disable(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+
+    const deleteUser = new DeleteUserService();
+
+    const user = await deleteUser.execute(id);
+
+    return response.json(user);
+  }
 }

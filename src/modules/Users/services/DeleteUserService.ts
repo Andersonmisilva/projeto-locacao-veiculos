@@ -8,7 +8,7 @@ class DeleteUserService {
     const user = await usersRepository.findOne(id);
 
     if (!user) {
-      throw new Error('Usuário não existe!');
+      throw new Error('User not found');
     }
 
     user.actived = false;
