@@ -8,6 +8,15 @@ import {
 
 @Entity('users')
 class User {
+  find(arg0: { where: { actived: boolean } }) {
+    throw new Error('Method not implemented.');
+  }
+  save(user: void) {
+    throw new Error('Method not implemented.');
+  }
+  findOne(id: string) {
+    throw new Error('Method not implemented.');
+  }
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -17,16 +26,19 @@ class User {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ name: 'password' })
   password: string;
 
   @Column()
   avatar: string;
 
-  @CreateDateColumn()
+  @Column({ default: true, name: 'actived' })
+  actived: boolean;
+
+  @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updated_at: Date;
 }
 

@@ -1,15 +1,19 @@
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
-import UsersRepository from '../typeorm/entities/repositories/UsersRepository';
+import UsersRepository from '../repositories/UsersRepository';
 
 class ListUserService {
-  public async execute(): Promise<User[]> {
-    const usersRepository = getCustomRepository(UsersRepository);
-
-    const users = usersRepository.find();
-
+  execute() {
+    throw new Error('Method not implemented.');
+  }
+  public async listUsers(): Promise<User[]> {
+    const userRepository = getCustomRepository(UsersRepository);
+    const users = await userRepository.find({
+      where: {
+        actived: true,
+      },
+    });
     return users;
   }
 }
-
 export default ListUserService;
