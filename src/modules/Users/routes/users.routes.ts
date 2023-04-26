@@ -53,4 +53,6 @@ usersRouter.delete(
   usersController.delete,
 );
 
+usersRouter.get('/all', usersController.listAll);
+
 export default usersRouter;

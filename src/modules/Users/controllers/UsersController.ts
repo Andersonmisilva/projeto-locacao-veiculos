@@ -4,6 +4,7 @@ import ListUserService from '../services/ListUserService';
 import UpdateUserService from '../services/UpdateUserService';
 import ShowUserService from '../services/ListOneUserService';
 import DeleteUserService from '../services/DeleteUserService';
+import ListAllUsersService from '../services/ListAllUsersService';
 
 export default class UsersController {
   public async show(request: Request, response: Response): Promise<Response> {
@@ -24,6 +25,16 @@ export default class UsersController {
     return response.json(users);
   }
 
+  public async listAll(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const listAllUsers = new ListAllUsersService();
+
+    const users = await listAllUsers.execute();
+
+    return response.json(users);
+  }
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
 
