@@ -6,7 +6,11 @@ import { hash } from 'bcryptjs';
 import { ICreateRequest } from '../interfaces/IUser.interface';
 
 class CreateUserService {
-  public async execute({ name, email, password }: ICreateRequest): Promise<User> {
+  public async execute({
+    name,
+    email,
+    password,
+  }: ICreateRequest): Promise<User> {
     const usersRepository = getCustomRepository(UsersRepository);
     const emailExists = await usersRepository.findByEmail(email);
 

@@ -3,7 +3,7 @@ import User from '../typeorm/entities/User';
 import UsersRepository from '../repositories/UsersRepository';
 
 class ListUserService {
-  public async execute(): Promise<User[]> {
+  public async execute(): Promise<any> {
     const userRepository = getCustomRepository(UsersRepository);
     const users = await userRepository.find({
       where: {

@@ -7,6 +7,8 @@ const usersController = new UsersController();
 
 usersRouter.get('/', usersController.index);
 
+usersRouter.get('/all', usersController.listAll);
+
 usersRouter.get(
   '/:id',
   celebrate({
@@ -52,7 +54,5 @@ usersRouter.delete(
   }),
   usersController.delete,
 );
-
-usersRouter.get('/all', usersController.listAll);
 
 export default usersRouter;

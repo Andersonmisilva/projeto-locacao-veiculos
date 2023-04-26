@@ -26,6 +26,16 @@ class User {
   @Column()
   email: string;
 
+  /*
+ data aniversario,
+ outra tabela --> endereco ( id_user) cep. rua, numero, cidade, uf
+ matricula
+ setor
+ funcao
+ ramal
+ celular
+  */
+
   @Column({ name: 'password' })
   password: string;
 
