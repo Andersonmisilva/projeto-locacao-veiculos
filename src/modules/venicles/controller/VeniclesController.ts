@@ -25,16 +25,14 @@ class VeniclesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { brand, model, year, price, mileage } = request.body;
-
+    const { model, year, price } = request.body;
+    console.log('aqui');
     const createVenicles = new CreateVeniclesService();
 
     const venicle = await createVenicles.execute({
-      brand,
       model,
       year,
       price,
-      mileage,
     });
 
     return response.json(venicle);

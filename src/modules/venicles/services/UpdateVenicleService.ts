@@ -1,8 +1,8 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '../../../shared/errors/AppError';
 import Venicles from '../typeorm/entities/Venicles';
-import { IUpdateVeniclesRequest } from '../interfaces/IUpdateVeniclesRequest';
 import VeniclesRepository from '@modules/Users/typeorm/entities/repositories/VeniclesRepository';
+import { IUpdateVeniclesRequest } from '../inferfaces/IRVenicles';
 
 class UpdateVeniclesService {
   public async execute({
@@ -21,27 +21,19 @@ class UpdateVeniclesService {
       throw new AppError('Vehicle not found.');
     }
 
-    const vehicleWithUpdatedBrandAndModel =
-      vehiclesRepository.findByBrandAndModel(brand, model);
-
-    if (
-      vehicleWithUpdatedBrandAndModel &&
-      vehicleWithUpdatedBrandAndModel.id !== id
-    ) {
-      throw new AppError(
-        'There is already a vehicle with this brand and model.',
-      );
-    }
-
     vehicle.brand = brand;
     vehicle.model = model;
     vehicle.year = year;
     vehicle.price = price;
     vehicle.mileage = mileage;
 
-    await vehiclesRepository.save(vehicle);
+    const updatedVehicle = await vehiclesRepository.save(vehicle);
 
-    return vehicle;
+    if (!updatedVehicle) {
+      throw new AppError('Error updating vehicle.');
+    }
+
+    return updatedVehicle;
   }
 }
 

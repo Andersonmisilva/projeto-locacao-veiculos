@@ -5,6 +5,8 @@ import VeniclesController from '../controller/VeniclesController';
 const veniclesRouter = Router();
 const veniclesController = new VeniclesController();
 
+veniclesRouter.get('/', veniclesController.index);
+
 veniclesRouter.post(
   '/',
   celebrate({
@@ -13,7 +15,7 @@ veniclesRouter.post(
       model: Joi.string().required(),
       year: Joi.number().required(),
       price: Joi.number().required(),
-      mileage: Joi.date().required(),
+      mileage: Joi.date(),
     },
   }),
   veniclesController.create,
@@ -30,13 +32,11 @@ veniclesRouter.put(
       model: Joi.string().required(),
       year: Joi.number().required(),
       price: Joi.number().required(),
-      mileage: Joi.date().required(),
+      mileage: Joi.date(),
     },
   }),
   veniclesController.update,
 );
-
-veniclesRouter.get('/', veniclesController.list);
 
 veniclesRouter.get(
   '/:id',

@@ -30,5 +30,5 @@ app.use(
 );
 
 app.listen(3000, () => {
-  console.log('Lets bora  port 3000!');
+  console.log('Lets bora conectado no servidor port 3000!');
 });

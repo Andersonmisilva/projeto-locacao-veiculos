@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('vehicles')
-class Venicles {
+class Venicle {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -14,10 +14,10 @@ class Venicles {
   @Column()
   year: number;
 
-  @Column('decimal')
+  @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
-  @Column('timestamp with time zone')
+  @Column('timestamp with time zone', { precision: 10, scale: 5 })
   mileage: Date;
 
   @Column('timestamp with time zone')
@@ -27,4 +27,4 @@ class Venicles {
   updated_at: Date;
 }
 
-export default Venicles;
+export default Venicle;
