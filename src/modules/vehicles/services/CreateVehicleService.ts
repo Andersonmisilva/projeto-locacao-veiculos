@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import VehicleEntity from 'src/modules/vehicles/typeorm/entities/vehicles.entities';
-import VehicleRepository from '../repositories/venicleRepository';
-
+import VehicleRepository from '../repositories/VehicleRepository';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IRequest {
   brand: string;
@@ -22,16 +22,21 @@ class CreateVehicleService {
     mileage,
   }: IRequest): Promise<VehicleEntity> {
     const vehiclesRepository = getCustomRepository(VehicleRepository);
-
-    const vehicle = await vehiclesRepository.createVehicle({
+    const id = uuidv4();
+    const created_at = new Date();
+    const updated_at = new Date();
+    const vehicle = vehiclesRepository.create({
+      id,
       brand,
       model,
       plate,
       year,
       price,
       mileage,
+      created_at,
+      updated_at,
     });
-
+    await vehiclesRepository.save(vehicle);
     return vehicle;
   }
 }

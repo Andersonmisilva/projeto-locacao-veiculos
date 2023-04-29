@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 import VehicleEntity from 'src/modules/vehicles/typeorm/entities/vehicles.entities';
 
-
 @EntityRepository(VehicleEntity)
 export default class VehicleRepository extends Repository<VehicleEntity> {
   async createVehicle(vehicleData: {
@@ -27,7 +26,8 @@ export default class VehicleRepository extends Repository<VehicleEntity> {
       year: number;
       price: number;
       mileage: number;
-    }): Promise<VehicleEntity | null> {
+    },
+  ): Promise<VehicleEntity | null> {
     const { brand, model, plate, year, price, mileage } = vehicleData;
     const vehicle = await this.findOne(vehicleId);
     if (!vehicle) {

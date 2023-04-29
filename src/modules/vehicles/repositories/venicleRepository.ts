@@ -2,7 +2,7 @@ import { EntityRepository, Repository, getCustomRepository } from 'typeorm';
 import VehicleEntity from 'src/modules/vehicles/typeorm/entities/vehicles.entities';
 
 @EntityRepository(VehicleEntity)
-export default class VehicleRepository extends Repository<VehicleEntity> {
+export default class vehicleRepository extends Repository<VehicleEntity> {
   async createVehicle(vehicleData: {
     brand: string;
     model: string;
