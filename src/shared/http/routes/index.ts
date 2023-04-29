@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import usersRouter from '@modules/Users/routes/users.routes';
-import veniclesRouter from '@modules/venicles/routes/venicles.routes';
+import vehiclesRouter from '../../../modules/vehicles/routes/vehicles.router';
 
 const routes = Router();
 
 routes.use('/users', usersRouter);
-routes.use('/venicles', veniclesRouter);
+routes.use('/vehicles', vehiclesRouter);
 
 export default routes;
