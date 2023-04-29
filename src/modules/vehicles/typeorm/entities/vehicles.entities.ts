@@ -1,9 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { uuid } from 'uuidv4';
+import { UUID } from 'crypto';
+import { Entity, Column } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 @Entity('vehicles')
 export default class VehiclesEntity {
-  id: uuidv4;
+  id: UUID;
   brand: string;
   model: string;
   plate: string;
