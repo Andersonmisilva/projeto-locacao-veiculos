@@ -21,24 +21,28 @@ class CreateVehicleService {
     price,
     mileage,
   }: IRequest): Promise<VehicleEntity> {
-    const vehiclesRepository = getCustomRepository(VehicleRepository);
-    const id = uuidv4();
-    const created_at = new Date();
-    const updated_at = new Date();
-    const vehicle = vehiclesRepository.create({
-      id,
-      brand,
-      model,
-      plate,
-      year,
-      price,
-      mileage,
-      created_at,
-      updated_at,
-    });
-    await vehiclesRepository.save(vehicle);
-    return vehicle;
+    try {
+      const vehiclesRepository = getCustomRepository(VehicleRepository);
+      const id = uuidv4();
+      const created_at = new Date();
+      const updated_at = new Date();
+      const vehicle = vehiclesRepository.create({
+        id,
+        brand,
+        model,
+        plate,
+        year,
+        price,
+        mileage,
+        created_at,
+        updated_at,
+      });
+      await vehiclesRepository.save(vehicle);
+      return vehicle;
+    } catch (error) {
+    console.log(`Erro: ${error.message}`);
+    throw new Error(`Error saving vehicle: ${error.message}`);
+  }
   }
 }
-
 export default CreateVehicleService;

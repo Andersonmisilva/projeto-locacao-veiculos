@@ -9,10 +9,15 @@ export default class VehiclesEntity {
 
   @Column()
   brand: string;
+  @Column({ nullable: false, default: '' })
   model: string;
+  @Column({ nullable: false, default: '' })
   plate: string;
+  @Column({ nullable: false, default: '' })
   year: number;
+  @Column({ nullable: false, default: '' })
   price: number;
+  @Column({ nullable: false, default: '' })
   mileage: number;
 
   @Column({ name: 'created_at', type: 'timestamptz' })

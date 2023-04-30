@@ -1,31 +1,41 @@
 import { Request, Response } from 'express';
 import CreateVehicleService from '../services/CreateVehicleService';
+import ShowVehicleService from '../services/ShowVenicleService';
+
+interface IVehicleCreate {
+  brand: string;
+  model: string;
+  plate: string;
+  year: number;
+  price: number;
+  mileage: number;
+}
 
 export default class VehiclesController {
   public async show(request: Request, response: Response): Promise<any> {
-    return response.json({
-      messagem: 'Estou aqui show',
+    const { plate } = request.params;
+    const showVehicleService = new ShowVehicleService();
+    const vehicle = await showVehicleService.execute({
+      plate,
     });
   }
 
   public async index(request: Request, response: Response): Promise<any> {
     return response.json({
-      messagem: 'Estou aqui index',
+      message: 'Estou aqui index',
     });
   }
 
   public async listAll(request: Request, response: Response): Promise<any> {
     return response.json({
-      messagem: 'Estou aqui listAll',
+      message: 'Estou aqui listAll',
     });
   }
 
-  public async create(request: Request, response: Response): Promise<> {
+  public async create(request: Request, response: Response): Promise<any> {
     const { brand, model, plate, year, price, mileage } = request.body;
     const createVehicleService = new CreateVehicleService();
-    console.log('Estou aqui anterior a venicle');
     const vehicle = await createVehicleService.execute({
-      id,
       brand,
       model,
       plate,
@@ -33,19 +43,18 @@ export default class VehiclesController {
       price,
       mileage,
     });
-    console.log('estou aqui', vehicle);
     return response.json(vehicle);
   }
 
   public async update(request: Request, response: Response): Promise<any> {
     return response.json({
-      messagem: 'Estou aqui update',
+      message: 'Estou aqui update',
     });
   }
 
   public async delete(request: Request, response: Response): Promise<any> {
     return response.json({
-      messagem: 'Estou aqui delete',
+      message: 'Estou aqui delete',
     });
   }
 }
