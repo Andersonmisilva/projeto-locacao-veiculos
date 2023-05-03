@@ -42,4 +42,9 @@ export default class VehicleRepository extends Repository<VehicleEntity> {
     await this.save(vehicle);
     return vehicle;
   }
+
+  async findOneVehiclePlate(plate: string): Promise<VehicleEntity | null> {
+    const result = await this.findOne({ where: { plate } });
+    return result || null;
+  }
 }

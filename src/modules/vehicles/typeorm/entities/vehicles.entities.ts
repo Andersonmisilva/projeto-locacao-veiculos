@@ -11,7 +11,7 @@ export default class VehiclesEntity {
   brand: string;
   @Column({ nullable: false, default: '' })
   model: string;
-  @Column({ nullable: false, default: '' })
+  @Column({ name: 'plate' })
   plate: string;
   @Column({ nullable: false, default: '' })
   year: number;

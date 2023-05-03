@@ -1,20 +1,25 @@
 import { getCustomRepository } from 'typeorm';
 import VehicleEntity from 'src/modules/vehicles/typeorm/entities/vehicles.entities';
 import VehicleRepository from '../repositories/VehicleRepository';
+import AppError from '@shared/errors/AppError';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IRequestShow {
-  plate: string;
+  id: string;
 }
 
 class ShowVehicleService {
-  public async execute({ plate }: IRequestShow): Promise<VehicleEntity> {
-    const vehiclesRepository = getCustomRepository(VehicleRepository);
-    const vehicle = await vehiclesRepository.findOne({
-      where: { plate },
-    });
+  public async execute({ id }: IRequestShow): Promise<VehicleEntity> {
+    const vehicleRepository = getCustomRepository(VehicleRepository);
+    console.log('Cheguei aqui 1:');
+    const vehicle = await vehicleRepository.findOne(id);
+    console.log('Cheguei aqui 2:', id);
     if (!vehicle) {
-      throw new Error('Vehicle not found');
+      throw new AppError('Vehicle not found.');
     }
+
+    console.log('Cheguei aqui apos a instancia:', vehicle);
+
     return vehicle;
   }
 }

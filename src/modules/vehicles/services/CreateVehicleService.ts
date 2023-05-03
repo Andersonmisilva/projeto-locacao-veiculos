@@ -27,7 +27,6 @@ class CreateVehicleService {
       const created_at = new Date();
       const updated_at = new Date();
       const vehicle = vehiclesRepository.create({
-        id,
         brand,
         model,
         plate,
@@ -39,10 +38,10 @@ class CreateVehicleService {
       });
       await vehiclesRepository.save(vehicle);
       return vehicle;
-    } catch (error) {
-    console.log(`Erro: ${error.message}`);
-    throw new Error(`Error saving vehicle: ${error.message}`);
-  }
+    } catch (error: any) {
+      console.log(`Erro: ${error.message}`);
+      throw new Error(`Error saving vehicle: ${error.message}`);
+    }
   }
 }
 export default CreateVehicleService;
