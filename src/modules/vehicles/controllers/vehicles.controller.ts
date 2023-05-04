@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import CreateVehicleService from '../services/CreateVehicleService';
-import ShowVehicleService from '../services/ShowVenicleService';
+import ShowVenicleService from '../services/ShowVenicleService';
+
+import UpdateVehicleService from '../services/UpdateVehicleService';
+import { getCustomRepository } from 'typeorm';
+import VehicleRepository from '../repositories/VehicleRepository';
 
 interface IVehicleCreate {
   brand: string;
@@ -11,13 +15,15 @@ interface IVehicleCreate {
   mileage: number;
 }
 
-export default class VehiclesController {
-  public async show(request: Request, response: Response): Promise<any> {
-    const { plate } = request.params;
-    const showVehicleService = new ShowVehicleService();
-    const vehicle = await showVehicleService.execute({
-      plate,
-    });
+export default class venicleController {
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const showVenicle = new ShowVenicleService();
+
+    const user = await showVenicle.execute({ id });
+
+    return response.json(user);
   }
 
   public async index(request: Request, response: Response): Promise<any> {
@@ -26,10 +32,13 @@ export default class VehiclesController {
     });
   }
 
-  public async listAll(request: Request, response: Response): Promise<any> {
-    return response.json({
-      message: 'Estou aqui listAll',
-    });
+  public async findAll(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const vehiclesRepository = getCustomRepository(VehicleRepository);
+    const vehicles = await vehiclesRepository.find();
+    return response.json(vehicles);
   }
 
   public async create(request: Request, response: Response): Promise<any> {
@@ -46,10 +55,22 @@ export default class VehiclesController {
     return response.json(vehicle);
   }
 
-  public async update(request: Request, response: Response): Promise<any> {
-    return response.json({
-      message: 'Estou aqui update',
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const { brand, model, plate, year, price, mileage } = request.body;
+
+    const updateVehicleService = new UpdateVehicleService();
+    const updatedVehicle = await updateVehicleService.execute({
+      id,
+      brand,
+      model,
+      plate,
+      year,
+      price,
+      mileage,
     });
+
+    return response.json(updatedVehicle);
   }
 
   public async delete(request: Request, response: Response): Promise<any> {

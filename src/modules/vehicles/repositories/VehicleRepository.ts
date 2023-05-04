@@ -1,8 +1,12 @@
 import { EntityRepository, Repository } from 'typeorm';
-import VehicleEntity from 'src/modules/vehicles/typeorm/entities/vehicles.entities';
+import VehicleEntity from '@modules/vehicles/typeorm/entities/vehicles.entities';
 
 @EntityRepository(VehicleEntity)
 export default class VehicleRepository extends Repository<VehicleEntity> {
+  async findAll(): Promise<VehicleEntity[]> {
+    return await this.find();
+  }
+
   async createVehicle(vehicleData: {
     brand: string;
     model: string;

@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import VehicleEntity from 'src/modules/vehicles/typeorm/entities/vehicles.entities';
+import VehicleEntity from '@modules/vehicles/typeorm/entities/vehicles.entities';
 import VehicleRepository from '../repositories/VehicleRepository';
 import { v4 as uuidv4 } from 'uuid';
 
